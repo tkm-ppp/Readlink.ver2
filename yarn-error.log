@@ -1,0 +1,47 @@
+Arguments: 
+  /usr/local/bin/node /opt/yarn/bin/yarn.js add @hotwired/stimulus
+
+PATH: 
+  /usr/local/bundle/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+
+Yarn version: 
+  1.22.19
+
+Node version: 
+  20.12.0
+
+Platform: 
+  linux x64
+
+Trace: 
+  SyntaxError: /app/package.json: Expected ',' or '}' after property value in JSON at position 360
+      at JSON.parse (<anonymous>)
+      at /opt/yarn/lib/cli.js:1629:59
+      at Generator.next (<anonymous>)
+      at step (/opt/yarn/lib/cli.js:310:30)
+      at /opt/yarn/lib/cli.js:321:13
+
+npm manifest: 
+  {
+    "name": "app",
+    "private": true,
+    "devDependencies": {
+      "esbuild": "^0.24.0"
+    },
+    "dependencies": {
+      "@hotwired/stimulus": "^3.2.2",
+      "@hotwired/turbo-rails": "^8.0.12",
+      "bootstrap": "^5.3.3"
+    },
+    "scripts": {
+      "build:js": "esbuild app/javascript/*.* --bundle --sourcemap --outdir=app/assets/builds",
+      "build": "yarn build:js"
+      "build:css": "tailwindcss -i ./app/assets/stylesheets/application.tailwind.css -o ./app/assets/builds/application.css --minify"
+    }
+  }
+
+yarn manifest: 
+  No manifest
+
+Lockfile: 
+  No lockfile
