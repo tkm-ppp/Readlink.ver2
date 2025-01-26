@@ -1,23 +1,96 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title><%= content_for(:title) || "App" %></title>
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <%= csrf_meta_tags %>
-    <%= csp_meta_tag %>
+<head>
+  <title><%= content_for(:title) || "Myapp" %></title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <%= csrf_meta_tags %>
+  <%= csp_meta_tag %>
+  <%= stylesheet_link_tag 'home' %>
+  <%= yield :head %>
+  <link rel="icon" href="/icon.png" type="image/png">
+  <link rel="icon" href="/icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/icon.png">
+  <%= javascript_include_tag "application", "data-turbo-track": "reload", type: "module" %>
+  <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
 
-    <%= yield :head %>
+<body class="d-flex flex-column min-vh-100">
+    <header>    
+      <nav class="navbar navbar-expand navbar-light bg-warning">
+        <div class="container-fluid">
+          <a class="navbar-brand " href="/">ReadLink</a>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto"></ul>
 
-    <link rel="manifest" href="/manifest.json">
-    <link rel="icon" href="/icon.png" type="image/png">
-    <link rel="icon" href="/icon.svg" type="image/svg+xml">
-    <link rel="apple-touch-icon" href="/icon.png">
-    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
-    <%= javascript_include_tag "application", "data-turbo-track": "reload", type: "module" %>
-  </head>
+<%# if user_signed_in? %>
+  <%# <li class="nav-item"> %>
+    <%# link_to "ログアウト", destroy_user_session_path, method: :delete, class: "btn", style: "background-color: #00188A; color: white;" %>
+  <%# </li> %>
+<%# else %>
+  <%# <li class="nav-item"> %>
+    <%# link_to "ログイン", new_user_session_path, class: "btn", style: "background-color: #00188A; color: white;" %>
+  <%# </li> %>
+  <%# <li class="nav-item"> %>
+    <%# link_to '新規登録', new_user_registration_path, class: "btn", style: "background-color: #00188A; color: white;" %>
+  <%# </li> %>
+<%# end %>
+          </div>
+        </div>
+      </nav>
+    </header>
 
-  <body>
-    <%= yield %>
-  </body>
+  
+    <% flash.each do |type, message| %>
+      <div class="alert alert-<%= type == 'notice' ? 'success' : 'danger' %>">
+        <%= message %>
+      </div>
+    <% end %>
+
+    <div class="relative w-full">
+  <div class="<%= (controller_name == 'homes' && action_name == 'top') || (controller_name == 'sessions') || (controller_name == 'registrations') ? 'min-h-screen' : 'h-auto' %>">
+    <% if (controller_name == 'homes' && action_name == 'top') || (controller_name == 'sessions') || (controller_name == 'registrations') %>
+      <img src="<%= asset_path('portfolio.png') %>" alt="ポートフォリオ用の画像" class="absolute inset-0 object-cover w-full h-full" style="object-position: bottom;" />
+
+      <% unless @is_top_page %>
+        <div class="absolute inset-0 bg-black opacity-50"></div> <!-- 半透明のオーバーレイ -->
+      <% end %>
+    <% end %>
+
+    <%= form_with url: search_books_path, local: true, method: :get do |f| %>
+      <div class="absolute top-5 right-0 w-full max-w-md p-4 flex justify-end">
+        <div class="relative w-full max-w-md">
+          <%= f.search_field :search_term, class: "form-control w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500", placeholder: "本のタイトルや著者名を入力" %>
+          <%= f.submit "検索", class: "btn btn-primary bg-blue-500 text-white rounded-lg px-4 py-2 hover:bg-blue-600 transition" %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+
+      <!-- 画像の上に他のコンテンツを配置 -->
+    <div class="flex-grow-1 d-flex flex-column"> 
+      <div class="content w-full p-4 mt-4">
+        <%= yield %>
+      </div>
+    </div>
+  
+  
+    <footer class="mt-auto p-4">
+      <nav>
+        <ul>
+          <li><a href="#">お問い合わせ</a></li>
+          <li><a href="#">利用規約</a></li>
+          <li><a href="#">プライバシーポリシー</a></li>
+        </ul>
+      </nav>
+    </footer>
+  
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
 </html>

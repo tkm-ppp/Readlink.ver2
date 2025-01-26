@@ -1,0 +1,54 @@
+<%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+<%= stylesheet_link_tag 'home' if controller_name == 'homes' && action_name == 'top' %>
+
+header {
+  background-color: #FF8C00; /* オレンジ色 */
+  text-align: center;
+}
+
+h1 {
+  font-size: 2.5em;
+  margin: 0;
+  color: white;
+}
+
+nav ul {
+  list-style: none;
+  padding: 0;
+}
+
+nav li {
+  display: inline;
+  margin: 0 15px;
+}
+
+nav a {
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.hero {
+  text-align: center;
+  margin-top: 100px; /* 調整 */
+}
+
+.hero h2 {
+  font-size: 4em;
+  color: #333;
+}
+
+footer {
+  text-align: center;
+  background-color: #FF8C00;
+  padding: 10px;
+  position: relative;
+  bottom: 0;
+  width: 100%;
+}
+
+footer a {
+  color: white;
+}
+
+
