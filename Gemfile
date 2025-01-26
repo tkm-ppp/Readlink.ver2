@@ -46,6 +46,9 @@ gem 'warden', '1.2.9'
 # APIリクエストを簡単に行うため 
 gem 'httparty'
 
+# ページネーションのため
+gem 'kaminari'
+
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
