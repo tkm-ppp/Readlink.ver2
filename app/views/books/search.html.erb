@@ -1,21 +1,22 @@
-<% if @books.present? %>
-  <h2>検索結果: <%= params[:search_term] %></h2>
-  <div class="book-list grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-    <% @books.each do |book| %>
-      <div class="book-item flex items-center border p-4">
-        <% if book['image_link'] %>
-          <div class="mr-4">
-            <%= link_to image_tag(book['image_link'], alt: book['title'], class: "w-24 h-32 object-cover"), book['info_link'], target: "_blank" %>
-          </div>
-        <% end %>
-        <div>
-          <h3 class="text-lg font-semibold"><%= book['title'] %></h3>
-          <p class="text-gray-600"><%= book['author'] %></p>
+  <% if flash[:alert] %>
+    <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
+      <span class="block sm:inline"><%= flash[:alert] %></span>
+    </div>
+  <% end %>
+
+  <% if @books.present? %>
+    <div class="mt-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+      <% @books.each do |book| %>
+        <div class="bg-white shadow-md rounded-lg p-4">
+          <h2 class="text-xl font-semibold mb-2"><%= book['title'] || "タイトル不明" %></h2>
+          <p class="text-gray-700">著者: <%= book['author'] || "不明" %></p>
+          <p class="text-gray-700">出版社: <%= book['publisher'] || "不明" %></p>
+          <% if book['cover_url'].present? %>
+            <img src="<%= book['cover_url'] %>" alt="書籍のカバー" class="w-32 h-auto mt-2"/>
+           <% end %>
+          <%= link_to '詳細を見る', book_path(isbn: book['isbn']), class: "mt-2 inline-block bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" %>
         </div>
-      </div>
-    <% end %>
-  </div>
-  <%= paginate @books %>
-<% elsif params[:search_term] %>
-  <p>検索結果がありません。</p>
-<% end %>
+      <% end %>
+    </div>
+  <% end %>
+</div>
