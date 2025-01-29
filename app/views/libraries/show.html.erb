@@ -1,0 +1,26 @@
+<h1 class="text-2xl font-bold mb-4">図書館詳細情報</h1>
+
+<% if flash[:alert] %>
+  <p class="text-red-500"><%= flash[:alert] %></p>
+<% elsif @library_detail %>
+  <h2 class="text-xl font-semibold"><%= @library_detail['formal'] %> (<%= @library_detail['short'] %>)</h2>
+
+  <dl class="grid grid-cols-2 gap-4">
+    <dt class="font-medium">図書館ID</dt><dd><%= @library_detail['libid'] %></dd>
+    <dt class="font-medium">システムID</dt><dd><%= @library_detail['systemid'] %></dd>
+    <dt class="font-medium">住所</dt><dd><%= @library_detail['address'] %></dd>
+    <dt class="font-medium">電話番号</dt><dd><%= @library_detail['tel'] %></dd>
+    <dt class="font-medium">郵便番号</dt><dd><%= @library_detail['post'] %></dd>
+    <dt class="font-medium">URL</dt><dd><% if @library_detail['url_pc'].present? %><%= link_to @library_detail['url_pc'], @library_detail['url_pc'], target: '_blank' %><% else %>-<% end %></dd>
+    <dt class="font-medium">都道府県</dt><dd><%= @library_detail['pref'] %></dd>
+    <dt class="font-medium">市区町村</dt><dd><%= @library_detail['city'] %></dd>
+    <dt class="font-medium">緯度経度</dt><dd><%= @library_detail['geocode'] %></dd>
+    <dt class="font-medium">図書館キー</dt><dd><%= @library_detail['libkey'] %></dd>
+    <dt class="font-medium">正式名称</dt><dd><%= @library_detail['formal'] %></dd>
+    <dt class="font-medium">略称</dt><dd><%= @library_detail['short'] %></dd>
+  </dl>
+
+  <%= link_to "都道府県別一覧に戻る", regions_path(pref_name: @library_detail['pref']), class: "mt-4 inline-block bg-blue-500 text-white py-2 px-4 rounded" %>
+<% else %>
+  <p>図書館情報を取得できませんでした。</p>
+<% end %>

@@ -4,7 +4,12 @@ Rails.application.routes.draw do
 
   get 'books/search', to: 'books#search', as: 'search_books'
 
-  resources :libraries, only: [:index]
+  get 'regions', to: 'regions#index', as: 'regions'
+  get 'regions/:pref_name', to: 'regions#show', as: 'region'
+
+
+  get 'libraries/:systemid/:libkey', to: 'libraries#show', as: 'library'
+
 
 
 # devise_for :users, controllers: {
@@ -20,3 +25,5 @@ Rails.application.routes.draw do
 
 
 end
+
+

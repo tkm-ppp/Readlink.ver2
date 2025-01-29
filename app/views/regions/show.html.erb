@@ -1,0 +1,26 @@
+<div class="container mx-auto p-4">
+  <h1 class="text-2xl font-bold mb-4"><%= @pref_name %> の図書館リスト</h1>
+   <% if flash[:alert] %>
+      <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
+        <span class="block sm:inline"><%= flash[:alert] %></span>
+      </div>
+    <% end %>
+   <% if @city_library_lists.present? %>
+    <div class="space-y-4">
+       <% @city_library_lists.each do |city_name, libraries| %>
+        <% if libraries.present? %>
+        <div class="bg-white rounded-lg shadow-md p-4">
+          <h2 class="text-xl font-semibold mb-2"><%= city_name %></h2>
+          <ul>
+            <% libraries.each do |library| %>
+              <li class="mb-1 hover:bg-gray-100 rounded-md px-2 py-1">
+                <%= link_to library["formal"], library_path(systemid: library["systemid"], libkey: library["libkey"]), class: "block" %>
+              </li>
+            <% end %>
+          </ul>
+         </div>
+        <% end %>
+      <% end %>
+    </div>
+   <% end %>
+</div>
