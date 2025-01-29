@@ -18,7 +18,7 @@ class RegionsController < ApplicationController
     regions_jp.each do |region_name, prefectures|
       @regions_data[region_name] = {}
       prefectures.each do |pref|
-        @regions_data[region_name][pref] =  pref #fetch_library_count(pref)　削除
+        @regions_data[region_name][pref] =  pref 
       end
     end
   end

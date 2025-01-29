@@ -36,13 +36,13 @@ class LibrariesController < ApplicationController
     begin
       libraries_data = JSON.parse(rjson)
       if libraries_data.is_a?(Array) && libraries_data.any?
-        return libraries_data.first # 詳細情報は配列の最初の要素に入っている
+        return libraries_data.first # 詳細情報は配列の最初の要素に入っているから
       else
-        return nil # データがない場合はnilを返す
+        return nil 
       end
     rescue JSON::ParserError => e
       Rails.logger.error("JSONの解析エラー: #{e.message} - 図書館ID: #{library_id}")
-      return nil # エラー時はnilを返す
+      return nil 
     end
   end
 end
