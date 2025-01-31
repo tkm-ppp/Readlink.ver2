@@ -1,7 +1,6 @@
-<!-- app/views/books/show.html.erb -->
-
 <div class="container mx-auto p-4">
   <h1 class="text-2xl font-bold mb-4">書籍詳細</h1>
+
   <% if flash[:alert] %>
     <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
       <span class="block sm:inline"><%= flash[:alert] %></span>
@@ -25,31 +24,39 @@
       </div>
     </div>
   <% elsif @isbn.present? && !flash.alert %>
-    <p>書籍詳細情報が見つかりませんでした。</p> <!-- メッセージを変更 -->
+    <p>書籍詳細情報が見つかりませんでした。</p>
   <% end %>
 
   <% if @availability_results.present? && !@availability_results[:error] && @availability_results[@isbn] %>
     <div class="bg-white shadow-md rounded-lg p-4">
       <h2 class="text-xl font-semibold mb-2">大阪府内図書館 貸出状況 (ISBN: <%= @isbn %>)</h2>
       <% @availability_results[@isbn].each do |systemid, system_info| %>
-        <h3 class="text-lg font-semibold mt-4"><%= systemid %></h3>
-        <p><strong>状態:</strong> <%= system_info[:status] %></p>
-        <% if system_info[:reserveurl].present? %>
-          <p><strong>予約:</strong> <a href="<%= system_info[:reserveurl] %>" target="_blank">予約ページへ</a></p>
-        <% end %>
-        <% if system_info[:libraries].present? %>
-          <p><strong>図書館別貸出状況:</strong></p>
-          <ul>
-            <% system_info[:libraries].each do |lib_name, status| %>
-              <li><%= lib_name %>: <%= status %></li>
+        <div class="mb-6 p-4 border rounded-lg">
+          <div class="flex justify-between items-center mb-2">
+            <h3 class="text-lg font-semibold"><%= systemid_display_name(systemid) %></h3>
+            <p class="font-semibold">状態: <%= system_info[:status] %></p>
+          </div>
+          <div class="grid grid-cols-4 gap-2"> <%# grid layout for library branches %>
+            <% if system_info[:libraries].present? %>
+              <% system_info[:libraries].each do |lib_name, status| %>
+                <div class="flex flex-col items-center justify-center p-2 border rounded-md shadow-sm">
+                  <%= link_to library_display_name(lib_name), library_path(systemid: systemid, libkey: lib_name), class: "text-sm text-center text-blue-500 underline" %>
+                  <span class="text-xs text-gray-700"><%= status %></span>
+                </div>
+              <% end %>
+            <% else %>
+              <p>蔵書なし</p>
             <% end %>
-          </ul>
-        <% else %>
-          <p>蔵書なし</p>
-        <% end %>
+          </div>
+          <% if system_info[:reserveurl].present? %>
+            <div class="mt-4 text-center">
+              <a href="<%= system_info[:reserveurl] %>" target="_blank" class="bg-yellow-500 text-white px-4 py-2 rounded hover:bg-yellow-600 inline-block">予約する</a>
+            </div>
+          <% end %>
+        </div>
       <% end %>
     </div>
-  <% elsif @isbn.present? && !flash.alert && !@book.present? %> <!-- @book.present? の条件を追加 -->
+  <% elsif @isbn.present? && !flash.alert && !@book.present? %>
     <p>大阪府内の図書館で書籍情報が見つかりませんでした。</p>
   <% end %>
 

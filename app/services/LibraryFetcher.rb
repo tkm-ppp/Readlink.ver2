@@ -55,14 +55,27 @@ class LibraryFetcher
 
   def self.fetch_book_details(isbn) # メソッド名を変更、systemid を固定、appkey を環境変数から取得
     appkey = ENV['CALIL_API_KEY'] # 環境変数からAPIキーを取得
-    systemid = "Osaka_Suita" # systemid を固定
+    prefecture_system_ids = [
+  'Osaka_Osaka', 'Osaka_Sakai', 'Osaka_Kishiwada', 'Osaka_Toyonaka', 
+  'Osaka_Ikeda', 'Osaka_Suita', 'Osaka_IzumiOtsu', 'Osaka_Takatsuki', 
+  'Osaka_Kaizuka', 'Osaka_Moriguchi', 'Osaka_Hirakata', 'Osaka_Ibaraki', 
+  'Osaka_Yao', 'Osaka_IzumiSano', 'Osaka_Tondabayashi', 'Osaka_Neyagawa', 
+  'Osaka_Kawachinagano', 'Osaka_Matsubara', 'Osaka_Daito', 'Osaka_Izumi', 
+  'Osaka_Minoh', 'Osaka_Kashiwara', 'Osaka_Habikino', 'Osaka_Kadoma', 
+  'Osaka_Setsuto', 'Osaka_Takaishi', 'Osaka_Fujidera', 'Osaka_Higashiosaka', 
+  'Osaka_Sennan', 'Osaka_Shirodawate', 'Osaka_Katano', 'Osaka_Osakasayama', 
+  'Osaka_Hannan', 'Osaka_Shimamoto', 'Osaka_Toyono', 'Osaka_Nose', 
+  'Osaka_Tadaoka', 'Osaka_Kumatori', 'Osaka_Tajiri', 'Osaka_Misaki', 
+  'Osaka_Taishi', 'Osaka_Kawachinagano', 'Osaka_Chihayaakasaka'
+]
+
 
     Rails.logger.debug "APIキー (先頭5文字): #{appkey.to_s[0..4]}... (デバッグのため先頭5文字のみ表示)" if appkey.present? # APIキーが読み込めているか確認 (先頭5文字のみログ出力)
 
     params = {
       appkey: appkey,
       isbn: isbn,
-      systemid: systemid,
+      systemid: prefecture_system_ids.join(','),
       format: 'json'
     }
 

@@ -10,6 +10,16 @@ class BooksController < ApplicationController
       @books = ApiFetcher.fetch_data(params[:search_term])
       return render(status: :bad_request) if @books.blank? # 検索結果が空の場合はBadRequestを返す
 
+      # 必要な情報のみを抽出
+      @books = @books.map do |book|
+        {
+          title: book[:title],
+          author: book[:author],
+          image_link: book[:image_link],
+          isbn: book[:isbn]
+        }
+      end
+
       @books = Kaminari.paginate_array(@books).page(params[:page]).per(20)
 
       csv_filename = Rails.root.join('tmp', "search_results_#{Time.now.to_i}.csv")
