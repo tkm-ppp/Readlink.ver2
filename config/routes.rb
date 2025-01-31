@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   root to: "homes#top"
 
   get 'books/search', to: 'books#search', as: 'search_books'
+  get 'books/:isbn', to: 'books#show', as: 'book'
 
   get 'regions', to: 'regions#index', as: 'regions'
   get 'regions/:pref_name', to: 'regions#show', as: 'region'
