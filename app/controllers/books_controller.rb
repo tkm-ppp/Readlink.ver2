@@ -7,8 +7,8 @@ require 'kaminari/actionview'
 class BooksController < ApplicationController
   def search
     if params[:search_term].present?
-      @books = ApiFetcher.fetch_data(params[:search_term])
-      return render(status: :bad_request) if @books.blank? # 検索結果が空の場合はBadRequestを返す
+      @books = BookSearch.fetch_data(params[:search_term]) # ApiFetcherをBookSearchに変更
+      return render(status: :bad_request) if @books.blank?  # 検索結果が空の場合はBadRequestを返す
 
       # 必要な情報のみを抽出
       @books = @books.map do |book|

@@ -30,18 +30,18 @@
               </li>
 
 
-<%# if user_signed_in? %>
-  <%# <li class="nav-item"> %>
-    <%# link_to "ログアウト", destroy_user_session_path, method: :delete, class: "btn", style: "background-color: #00188A; color: white;" %>
-  <%# </li> %>
-<%# else %>
-  <%# <li class="nav-item"> %>
-    <%# link_to "ログイン", new_user_session_path, class: "btn", style: "background-color: #00188A; color: white;" %>
-  <%# </li> %>
-  <%# <li class="nav-item"> %>
-    <%# link_to '新規登録', new_user_registration_path, class: "btn", style: "background-color: #00188A; color: white;" %>
-  <%# </li> %>
-<%# end %>
+<% if user_signed_in? %>
+  <li class="nav-item">
+    <%= link_to "ログアウト", destroy_user_session_path, method: :delete, class: "btn", style: "background-color: #00188A; color: white;" %>
+  </li>
+<% else %>
+  <li class="nav-item">
+    <%= link_to "ログイン", new_user_session_path, class: "btn", style: "background-color: #00188A; color: white;" %>
+  </li>
+  <li class="nav-item">
+    <%= link_to '新規登録', new_user_registration_path, class: "btn", style: "background-color: #00188A; color: white;" %>
+  </li>
+<% end %>
           </div>
         </div>
       </nav>
@@ -55,13 +55,11 @@
     <% end %>
 
     <div class="relative w-full">
-  <div class="<%= (controller_name == 'homes' && action_name == 'top') || (controller_name == 'sessions') || (controller_name == 'registrations') ? 'min-h-screen' : 'h-auto' %>">
+  <div class="<%= (controller_name == 'homes' && action_name == 'top') ? 'min-h-screen' : 'h-auto' %>">
     <% if (controller_name == 'homes' && action_name == 'top') || (controller_name == 'sessions') || (controller_name == 'registrations') %>
       <img src="<%= asset_path('portfolio.png') %>" alt="ポートフォリオ用の画像" class="absolute inset-0 object-cover w-full h-full" style="object-position: bottom;" />
 
-      <% unless @is_top_page %>
-        <div class="absolute inset-0 bg-black opacity-50"></div> <!-- 半透明のオーバーレイ -->
-      <% end %>
+
     <% end %>
 
     <%= form_with url: search_books_path, local: true, method: :get do |f| %>

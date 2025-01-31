@@ -43,6 +43,9 @@ gem 'responders', '3.1.1'
 
 gem 'warden', '1.2.9'
 
+gem 'rails-i18n'
+gem 'devise-i18n'
+
 # APIリクエストを簡単に行うため 
 gem 'httparty'
 

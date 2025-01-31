@@ -7,7 +7,6 @@ class LibraryFetcher
   CARIL_API_URL = "https://api.calil.jp/check"
   OPENBD_API_URL = "https://api.openbd.jp/v1/get" # openBD API の URL を追加
 
-  # 既存のメソッド (check_availability_in_osaka, format_availability_results) はそのまま
 
   def self.fetch_book_detail_from_openbd(isbn) # openBD API から書籍詳細情報を取得するメソッド
     uri = URI("#{OPENBD_API_URL}?isbn=#{isbn}")
