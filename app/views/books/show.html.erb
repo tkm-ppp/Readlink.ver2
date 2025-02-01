@@ -34,7 +34,6 @@
         <div class="mb-6 p-4 border rounded-lg">
           <div class="flex justify-between items-center mb-2">
             <h3 class="text-lg font-semibold"><%= systemid_display_name(systemid) %></h3>
-            <p class="font-semibold">状態: <%= system_info[:status] %></p>
           </div>
           <div class="grid grid-cols-4 gap-2"> <%# grid layout for library branches %>
             <% if system_info[:libraries].present? %>
