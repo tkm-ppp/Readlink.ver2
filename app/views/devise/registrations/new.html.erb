@@ -18,9 +18,9 @@
     </div>
 
     <div class="mb-4">
-      <%= label :password, "パスワード(6文字以上)", class: "block text-lg font-medium text-gray-700" %>
+      <%= label :password, "パスワード", class: "block text-lg font-medium text-gray-700" %>
       <% if @minimum_password_length %>
-        <em class="text-white">（<%= @minimum_password_length %> 文字以上）</em>
+        <em class="text-gray-700">（<%= @minimum_password_length %> 文字以上）</em>
       <% end %>
       <%= f.password_field :password, autocomplete: "new-password", class: "mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-blue-500 focus:border-blue-500 p-2" %>
     </div>
@@ -32,7 +32,7 @@
 
     <div class="flex items-center justify-between">
       <%= f.submit "新規作成", class: "bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600" %>
-      <%= link_to "ログイン", new_user_session_path(resource_name), class: "text-blue-500 hover:underline" %>
+
     </div>
   <% end %>
 </div>
